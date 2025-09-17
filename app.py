@@ -1,5 +1,6 @@
 import io
 import json
+import os  # ✅ REQUIRED for os.environ
 import streamlit as st
 import pandas as pd
 from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Paragraph, Spacer
@@ -30,7 +31,7 @@ def check_password():
 check_password()
 # 🔒 End Password Gate
 
-# --- Streamlit App Starts Here ---
+# --- Streamlit App ---
 st.set_page_config(page_title="Agent Ranking PDF Parser", layout="wide")
 
 st.title("Agent Ranking PDF Parser")
