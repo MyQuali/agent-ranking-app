@@ -8,10 +8,9 @@ from reportlab.lib import colors
 from reportlab.lib.styles import getSampleStyleSheet
 from parser import extract_text, parse_totals, build_dataframe
 
-# 🔒 Leadership Password Gate
+# 🔒 Leadership Password Gate (Render-compatible: uses ENV, not secrets.toml)
 def check_password():
-    """Simple password gate for leadership access."""
-    pw = st.secrets.get("APP_PASSWORD")  # value will come from Render Environment Variable
+    pw = os.environ.get("APP_PASSWORD")  # set this in Render → Environment
     if not pw:  # if not set, skip protection
         return True
     if "auth_ok" not in st.session_state:
@@ -19,7 +18,6 @@ def check_password():
     if st.session_state.auth_ok:
         return True
 
-    # Show password form
     with st.form("login"):
         typed = st.text_input("Password", type="password")
         ok = st.form_submit_button("Enter")
@@ -27,7 +25,7 @@ def check_password():
             st.session_state.auth_ok = True
             return True
 
-    st.stop()  # Stop the app until correct password is entered
+    st.stop()  # halt app until correct password entered
 
 check_password()
 # 🔒 End Password Gate
